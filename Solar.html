@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โลกและระบบสุริยะน่ารู้ - Solar System Knowledge</title>
+    <!-- Bootstrap5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --space-bg: #030712;
+            --space-card: rgba(15, 23, 42, 0.75);
+            --sun-gold: #fbbf24;
+            --sun-amber: #f97316;
+            --earth-cyan: #06b6d4;
+            --space-purple: #a855f7;
+            --space-magenta: #ec4899;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--space-bg);
+            color: #f1f5f9;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 60%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Navbar Styling */
+        .navbar-custom {
+            background-color: rgba(3, 7, 18, 0.85) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2) !important;
+        }
+
+        /* Hero Section Styling with Animated Background Image */
+        .hero-section {
+            position: relative;
+            padding: 130px 0 110px;
+            overflow: hidden;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Animated Background Layer */
+        .animated-bg {
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background-image: url('https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            animation: floatBg 22s ease-in-out infinite alternate;
+            opacity: 0.6;
+        }
+
+        /* Background Floating & Zooming Keyframes */
+        @keyframes floatBg {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            50% {
+                transform: scale(1.08) translate(-10px, -15px);
+            }
+            100% {
+                transform: scale(1.03) translate(10px, 10px);
+            }
+        }
+
+        /* Dark Cosmic Overlay for Text Readability */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(3, 7, 18, 0.7) 0%, rgba(15, 23, 42, 0.85) 60%, rgba(3, 7, 18, 0.98) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            background: linear-gradient(90deg, #fef08a 0%, #f97316 35%, #38bdf8 70%, #c084fc 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+        }
+
+        /* Cosmic Buttons */
+        .btn-cosmic-primary {
+            background: linear-gradient(135deg, #f97316 0%, #e11d48 100%);
+            border: none;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cosmic-primary:hover {
+            background: linear-gradient(135deg, #fb923c 0%, #f43f5e 100%);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.7);
+            transform: translateY(-2px);
+        }
+
+        .btn-cosmic-outline {
+            border: 2px solid #06b6d4;
+            color: #38bdf8;
+            background: rgba(6, 182, 212, 0.1);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cosmic-outline:hover {
+            background: #06b6d4;
+            color: #030712;
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Planet Card Styling */
+        .planet-card {
+            background: var(--space-card);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planet-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--card-glow, #38bdf8), transparent);
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .planet-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--card-glow, rgba(56, 189, 248, 0.6));
+            box-shadow: 0 15px 35px -10px var(--card-shadow, rgba(56, 189, 248, 0.3));
+        }
+
+        .planet-card:hover::before {
+            opacity: 1;
+        }
+
+        .planet-icon {
+            font-size: 2.5rem;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Section Title Styling */
+        .section-header {
+            position: relative;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #f97316, #a855f7);
+            margin: 14px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Accordion Cosmic Theme */
+        .accordion-item {
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            color: #f8fafc;
+            backdrop-filter: blur(10px);
+            margin-bottom: 12px;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+
+        .accordion-button {
+            background-color: rgba(15, 23, 42, 0.8);
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background: linear-gradient(90deg, rgba(88, 28, 135, 0.5) 0%, rgba(30, 27, 75, 0.8) 100%);
+            color: #38bdf8;
+            box-shadow: inset 0 -1px 0 rgba(168, 85, 247, 0.3);
+        }
+
+        .accordion-button::after {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        /* Custom Quiz Options */
+        .quiz-opt {
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        }
+
+        .quiz-opt:hover {
+            background-color: rgba(168, 85, 247, 0.2) !important;
+            border-color: #a855f7 !important;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        /* Badge Custom Glow */
+        .badge-sun {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fde047;
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+
+        .badge-mercury {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .badge-venus {
+            background: rgba(249, 115, 22, 0.15);
+            color: #ffedd5;
+            border: 1px solid rgba(249, 115, 22, 0.4);
+            box-shadow: 0 0 10px rgba(249, 115, 22, 0.2);
+        }
+
+        .badge-earth {
+            background: rgba(6, 182, 212, 0.15);
+            color: #67e8f9;
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+        }
+
+        .badge-mars {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        }
+
+        .badge-jupiter {
+            background: rgba(217, 119, 6, 0.15);
+            color: #fcd34d;
+            border: 1px solid rgba(217, 119, 6, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <i class="bi bi-globe2 text-info fs-3 me-2"></i>
+                <span class="fs-4">AstroLearn<span style="color: #f97316;">.TH</span></span>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#planets">ความรู้ดาวเคราะห์</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">คำถามน่ารู้</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#quiz">แบบทดสอบ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section text-center text-lg-start">
+        <div class="animated-bg"></div>
+        
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-content">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-9 mx-auto text-center">
+                    <span class="badge rounded-pill px-3 py-2 mb-3" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);">
+                        <i class="bi bi-stars me-1"></i> แหล่งเรียนรู้วิทยาศาสตร์ดาราศาสตร์ยุคใหม่
+                    </span>
+                    <h1 class="display-3 fw-bold hero-title mb-3">สำรวจความลับแห่งจักรวาล และระบบสุริยะ</h1>
+                    <p class="lead mb-4 fw-light fs-4" style="color: #cbd5e1;">
+                        เดินทางเข้าสู่ห้วงอวกาศอันกว้างใหญ่ ทำความรู้จักกับศูนย์กลางพลังงานดาวฤกษ์ และเหล่าดาวเคราะห์บริวารในระบบสุริยะจักรวาล
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                        <a href="#planets" class="btn btn-cosmic-primary btn-lg rounded-pill px-5">
+                            <i class="bi bi-rocket-takeoff me-2"></i> เริ่มต้นสำรวจ
+                        </a>
+                        <a href="#quiz" class="btn btn-cosmic-outline btn-lg rounded-pill px-5">
+                            <i class="bi bi-controller me-2"></i> ทดสอบความรู้
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="planets" class="py-5">
+        <div class="container py-4">
+            <div class="text-center section-header">
+                <h2 class="fw-bold text-white display-6">ดาวเคราะห์น่ารู้ในระบบสุริยะ</h2>
+                <p class="text-secondary">เกร็ดความรู้สำคัญเกี่ยวกับสมาชิกหลักของระบบสุริยะจักรวาล</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 planet-card text-white p-3" style="--card-glow: #fbbf24; --card-shadow: rgba(251, 191, 36, 0.3);">
+                        <div class="card-body">
+                            <div class="planet-icon mb-3" style="color: #fbbf24; text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);">
+                                <i class="bi bi-sun-fill"></i>
+                            </div>
+                            <h3 class="h5 card-title fw-bold" style="color: #fef08a;">ดวงอาทิตย์ (The Sun)</h3>
+                            <p class="card-text text-secondary small mb-3">
+                                ดาวฤกษ์ศูนย์กลางของระบบสุริยะ มีมวลคิดเป็น 99.8% ของมวลทั้งหมดในระบบ เป็นแหล่งพลังงานแสงและความร้อนสำคัญของโลก
+                            </p>
+                            <span class="badge badge-sun rounded-pill">ศูนย์กลางระบบ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 planet-card text-white p-3" style="--card-glow: #94a3b8; --card-shadow: rgba(148, 163, 184, 0.3);">
+                        <div class="card-body">
+                            <div class="planet-icon mb-3" style="color: #cbd5e1;">
+                                <i class="bi bi-circle-half"></i>
+                            </div>
+                            <h3 class="h5 card-title fw-bold" style="color: #e2e8f0;">ดาวพุธ (Mercury)</h3>
+                            <p class="card-text text-secondary small mb-3">
+                                ดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์มากที่สุดและมีขนาดเล็กที่สุด ไม่มีชั้นบรรยากาศหนาแน่น ทำให้อุณหภูมิต่างกันสุดขั้วระหว่างกลางวันและกลางคืน
+                            </p>
+                            <span class="badge badge-mercury rounded-pill">เตาไฟแช่แข็ง</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 planet-card text-white p-3" style="--card-glow: #f97316; --card-shadow: rgba(249, 115, 22, 0.3);">
+                        <div class="card-body">
+                            <div class="planet-icon mb-3" style="color: #f97316; text-shadow: 0 0 15px rgba(249, 115, 22, 0.6);">
+                                <i class="bi bi-brightness-high-fill"></i>
+                            </div>
+                            <h3 class="h5 card-title fw-bold" style="color: #ffedd5;">ดาวศุกร์ (Venus)</h3>
+                            <p class="card-text text-secondary small mb-3">
+                                ดาวเคราะห์ที่ร้อนที่สุดในระบบสุริยะ เนื่องจากมีชั้นบรรยากาศคาร์บอนไดออกไซด์หนาแน่น ก่อให้เกิดภาวะเรือนกระจกแบบรุนแรง
+                            </p>
+                            <span class="badge badge-venus rounded-pill">ฝาแฝดของโลก</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 planet-card text-white p-3" style="--card-glow: #06b6d4; --card-shadow: rgba(6, 182, 212, 0.3);">
+                        <div class="card-body">
+                            <div class="planet-icon mb-3" style="color: #06b6d4; text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);">
+                                <i class="bi bi-globe-americas"></i>
+                            </div>
+                            <h3 class="h5 card-title fw-bold" style="color: #67e8f9;">โลก (Earth)</h3>
+                            <p class="card-text text-secondary small mb-3">
+                                ดาวเคราะห์เพียงดวงเดียวในปัจจุบันที่พบสิ่งมีชีวิต มีน้ำในรูปของเหลวปกคลุมพื้นผิวมากกว่า 70% และมีชั้นบรรยากาศที่เหมาะสม
+                            </p>
+                            <span class="badge badge-earth rounded-pill">ดาวเคราะห์สีน้ำเงิน</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 planet-card text-white p-3" style="--card-glow: #ef4444; --card-shadow: rgba(239, 68, 68, 0.3);">
+                        <div class="card-body">
+                            <div class="planet-icon mb-3" style="color: #ef4444; text-shadow: 0 0 15px rgba(239, 68, 68, 0.6);">
+                                <i class="bi bi-record-circle"></i>
+                            </div>
+                            <h3 class="h5 card-title fw-bold" style="color: #fca5a5;">ดาวอังคาร (Mars)</h3>
+                            <p class="card-text text-secondary small mb-3">
+                                ได้ชื่อว่าดาวแดงเนื่องจากมีไอรอนออกไซด์ (สนิมเหล็ก) บนพื้นผิวมาก ปัจจุบันเป็นเป้าหมายหลักในการสำรวจเพื่อตั้งถิ่นฐานในอนาคต
+                            </p>
+                            <span class="badge badge-mars rounded-pill">ดาวแดง</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 planet-card text-white p-3" style="--card-glow: #d97706; --card-shadow: rgba(217, 119, 6, 0.3);">
+                        <div class="card-body">
+                            <div class="planet-icon mb-3" style="color: #f59e0b;">
+                                <i class="bi bi-disc"></i>
+                            </div>
+                            <h3 class="h5 card-title fw-bold" style="color: #fcd34d;">ดาวพฤหัสบดี (Jupiter)</h3>
+                            <p class="card-text text-secondary small mb-3">
+                                ดาวเคราะห์ที่มีขนาดใหญ่ที่สุดในระบบสุริยะ เป็นดาวแก๊สยักษ์ที่มีจุดแดงใหญ่ (Great Red Spot) ซึ่งเป็นพายุหมุนขนาดมหึมา
+                            </p>
+                            <span class="badge badge-jupiter rounded-pill">พี่ใหญ่แก๊สยักษ์</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-5" style="background: rgba(3, 7, 18, 0.6);">
+        <div class="container py-4">
+            <div class="text-center section-header">
+                <h2 class="fw-bold text-white display-6">คำถามน่ารู้ทางดาราศาสตร์</h2>
+                <p class="text-secondary">ไขข้อสงสัยยอดฮิตเกี่ยวกับอวกาศและปรากฏการณ์รอบตัว</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion shadow-lg" id="faqAccordion">
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    <i class="bi bi-question-circle text-info me-2"></i> ทำไมดาวพลูโตจึงถูกลดสถานะไม่ใช่ดาวเคราะห์หลัก?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary">
+                                    สหพันธ์ดาราศาสตร์สากล (IAU) ได้กำหนดนิยามใหม่ของ "ดาวเคราะห์" ในปี 2549 โดยระบุว่าดาวเคราะห์ต้องสามารถ <strong class="text-light">"เคลียร์วงโคจร"</strong> รอบตัวเองได้ แต่เนื่องจากดาวพลูโตอยู่ในแถบไคเปอร์และมีวัตถุอื่นโคจรทับซ้อนจำนวนมาก จึงถูกเปลี่ยนสถานะเป็น <strong class="text-info">"ดาวเคราะห์แคระ" (Dwarf Planet)</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    <i class="bi bi-question-circle text-info me-2"></i> 1 ปีแสง (Light-year) มีความยาวเท่าไหร่?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary">
+                                    1 ปีแสง ไม่ใช่หน่วยวัดเวลา แต่เป็น <strong class="text-light">หน่วยวัดระยะทาง</strong> คือระยะทางที่แสงเดินทางในอวกาศเป็นเวลา 1 ปี คิดเป็นระยะทางประมาณ <strong class="text-warning">9.46 ล้านล้านกิโลเมตร</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    <i class="bi bi-question-circle text-info me-2"></i> ทำไมเราถึงมองเห็นดวงจันทร์เพียงด้านเดียวเสมอ?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary">
+                                    เกิดจากปรากฏการณ์ที่เรียกว่า <strong class="text-light">Tidal Locking</strong> หรือการหมุนรอบตัวเองของดวงจันทร์ใช้เวลาเท่ากับเวลาที่โคจรรอบโลกพอดี (ประมาณ 27.3 วัน) ทำให้คนบนโลกมองเห็นดวงจันทร์เพียงด้านเดิมเสมอ
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="py-5">
+        <div class="container py-4">
+            <div class="text-center section-header">
+                <h2 class="fw-bold text-white display-6">ทดสอบความรู้สั้นๆ</h2>
+                <p class="text-secondary">ลองทดสอบดูว่าคุณจำเรื่องราวระบบสุริยะได้มากน้อยแค่ไหน</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card planet-card p-4 text-white" style="--card-glow: #a855f7; --card-shadow: rgba(168, 85, 247, 0.4);">
+                        <div class="card-body text-center">
+                            <span class="badge rounded-pill mb-3 px-3 py-2" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);">คำถามข้อที่ 1</span>
+                            <h4 class="fw-bold mb-4" style="color: #f1f5f9;">ดาวเคราะห์ดวงใดได้ชื่อว่าเป็น "ดาวเคราะห์ที่ร้อนที่สุด" ในระบบสุริยะ?</h4>
+                            
+                            <div class="d-grid gap-2 mb-3">
+                                <div class="quiz-opt p-3 rounded-3 text-start" onclick="checkAnswer(false, this)">
+                                    ก. ดาวพุธ (เพราะอยู่ใกล้ดวงอาทิตย์ที่สุด)
+                                </div>
+                                <div class="quiz-opt p-3 rounded-3 text-start" onclick="checkAnswer(true, this)">
+                                    ข. ดาวศุกร์ (เพราะมีภาวะเรือนกระจกหนาแน่น)
+                                </div>
+                                <div class="quiz-opt p-3 rounded-3 text-start" onclick="checkAnswer(false, this)">
+                                    ค. ดาวอังคาร (เพราะมีสีแดงแรงฤทธิ์)
+                                </div>
+                            </div>
+
+                            <div id="quizResult" class="alert d-none mt-3 mb-0" role="alert"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-secondary py-4 border-top border-secondary border-opacity-25" style="background: #020617;">
+        <div class="container text-center">
+            <div class="mb-3">
+                <a href="#" class="text-white text-decoration-none fw-bold fs-5">
+                    <i class="bi bi-globe2 text-info me-2"></i>AstroLearn<span style="color: #f97316;">.TH</span>
+                </a>
+            </div>
+            <p class="small text-secondary mb-2">
+                สื่อการเรียนรู้วิทยาศาสตร์ดาราศาสตร์เบื้องต้น สร้างสรรค์ด้วย Bootstrap 5
+            </p>
+            <div class="d-flex justify-content-center gap-3 mb-3">
+                <a href="#" class="text-secondary fs-5"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="text-secondary fs-5"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="text-secondary fs-5"><i class="bi bi-github"></i></a>
+            </div>
+            <p class="small text-secondary mb-0">&copy; 2026 AstroLearn TH. ให้บริการเพื่อการศึกษา.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function checkAnswer(isCorrect, element) {
+            const options = document.querySelectorAll('.quiz-opt');
+            options.forEach(opt => {
+                opt.classList.remove('bg-success', 'bg-danger', 'text-white', 'border-success', 'border-danger');
+            });
+
+            const resultBox = document.getElementById('quizResult');
+            resultBox.classList.remove('d-none', 'alert-success', 'alert-danger');
+
+            if (isCorrect) {
+                element.classList.add('bg-success', 'border-success', 'text-white');
+                resultBox.classList.add('alert-success');
+                resultBox.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i><strong>ถูกต้องแล้วครับ!</strong> ดาวศุกร์ร้อนที่สุดเนื่องจากชั้นบรรยากาศหนาแน่นดักจับความร้อนเอาไว้';
+            } else {
+                element.classList.add('bg-danger', 'border-danger', 'text-white');
+                resultBox.classList.add('alert-danger');
+                resultBox.innerHTML = '<i class="bi bi-x-circle-fill me-2"></i><strong>ยังไม่ถูกต้อง!</strong> ลองคิดใหม่อีกครั้งนะครับ (คำตอบไม่ใช่ดาวพุธหรือดาวอังคาร)';
+            }
+        }
+    </script>
+</body>
+</html>
